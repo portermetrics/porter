@@ -1,0 +1,11 @@
+{
+  "name": "porter-metrics",
+  "version": "1.0.0",
+  "description": "Teaches Claude to use the Porter Metrics connector correctly — first steps, connecting an account, reading data, and error recovery.",
+  "author": {
+    "name": "Porter Metrics Inc",
+    "url": "https://portermetrics.com"
+  },
+  "homepage": "https://portermetrics.com",
+  "keywords": ["porter", "marketing", "analytics", "mcp", "connector"]
+}

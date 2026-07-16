@@ -1,0 +1,14 @@
+{
+  "name": "portermetrics",
+  "owner": {
+    "name": "Porter Metrics Inc",
+    "url": "https://portermetrics.com"
+  },
+  "plugins": [
+    {
+      "name": "porter-metrics",
+      "source": "./plugins/porter-metrics",
+      "description": "Teaches Claude to use the Porter Metrics connector correctly — first steps, connecting an account, reading data, and error recovery."
+    }
+  ]
+}
