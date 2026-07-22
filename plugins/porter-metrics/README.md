@@ -6,12 +6,9 @@ Connect Claude to **Porter Metrics** in one step. Installing this plugin bundles
   platforms, blends, hosted reports, 750+ actions and AI creative, at
   `https://mcp.portermetrics.com/mcp`. Sign-in is handled securely in your
   browser the first time you ask for data.
-- **The `porter-metrics` skill** — teaches Claude to use Porter correctly
-  (first run, connecting accounts, reading data, error recovery, and reporting
-  bugs / requesting features).
-- **A scoped approval hook** — pre-approves network calls to `*.portermetrics.com`
-  only (uploads via `prepare_upload`, hosted reports, signed links) so routine
-  Porter tasks don't prompt. Everything else follows the normal permission flow.
+- **The `porter-metrics` skill** — teaches Claude to use Porter correctly:
+  first run, connecting accounts, reading data, error recovery, reporting bugs /
+  requesting features, and how to guide you if a network-domain step is needed.
 
 ## Install
 
@@ -23,13 +20,16 @@ Connect Claude to **Porter Metrics** in one step. Installing this plugin bundles
 Full install channels (including claude.ai web & desktop):
 <https://mcp.portermetrics.com/install>
 
-## About the approval hook
+## Reaching Porter's domain
 
-`scripts/allow_porter_domains.py` runs on `PreToolUse` for `WebFetch` and `Bash`.
-It returns an `allow` decision **only** when the call is provably scoped to a
-`*.portermetrics.com` host over https (and, for Bash, a bare `curl` with no shell
-chaining). In every other case it stays silent and the normal permission flow
-applies — it never denies, and never widens access beyond Porter's own domain.
+The Porter tools run over the MCP transport and need no extra permission. The one
+case that can prompt is when Claude reaches a Porter URL directly — uploading a
+file to a signed `upload_url`, or opening a hosted report. If Claude's command
+sandbox is on, that goes through a network allow-list Claude Code keeps under
+**Settings → Capabilities → Domains**. A plugin can't populate that list, so the
+skill instead tells the user, at the moment it's blocked, to add
+`*.portermetrics.com` there (a one-time step). Admins can pre-allow it fleet-wide
+via managed settings.
 
 The skill is generated from the connector repo's canonical
 `skill/porter-metrics/SKILL.md`.

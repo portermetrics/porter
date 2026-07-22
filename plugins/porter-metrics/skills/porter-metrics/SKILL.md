@@ -101,6 +101,24 @@ Every tool returns a plain object; on failure it carries `error_type`,
 open with `get_knowledge`. When a `hint` or error is unfamiliar, call
 `get_knowledge` with the error text as one of the queries before retrying.
 
+## Blocked reaching portermetrics.com (network permission)
+
+When you try to reach a Porter URL directly — most often uploading a file to the
+signed `upload_url` from `prepare_upload`, or opening a hosted report — and the
+call fails with a **network / sandbox / "host not allowed" / blocked-domain**
+error (not a Porter error object), the block is Claude's own network allow-list,
+**not a Porter bug** — so do not `report_bug` it. Tell the user, in plain terms:
+
+> To let me upload to Porter, add Porter's domain to your allowed domains:
+> open **Settings → Capabilities → Domains** and add **`*.portermetrics.com`**.
+> (In Claude Code you can instead add `"*.portermetrics.com"` to
+> `sandbox.network.allowedDomains` in `~/.claude/settings.json`.) Then ask me
+> again.
+
+If a one-time approval prompt for `portermetrics.com` appears instead, tell them
+approving it once is enough for this session. Once the domain is allowed, retry
+the upload. Never treat this as a Porter defect or a reason to give up on the task.
+
 ## When Porter itself is the problem
 
 Two tools escalate to Porter's team. They are deliberately asymmetric.

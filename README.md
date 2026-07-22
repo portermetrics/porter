@@ -16,17 +16,15 @@ schedule a weekly export, even generate ad creative — all inside the chat.
 
 ## What this is
 
-This is the official Porter Metrics plugin for Claude. Installing it does three
-things at once, so everything simply works from your first message:
+This is the official Porter Metrics plugin for Claude. Installing it does two
+things at once, so everything works from your first message:
 
 - 🔌 **Connects Claude to Porter** — your live marketing data from **25+ platforms**
   (Meta/Facebook Ads, Google Ads, GA4, TikTok, LinkedIn, Shopify and more),
   plus reports, saved analyses and a catalog of **750+ actions**.
 - 🧠 **Teaches Claude how to use Porter well** — so it asks for the right things,
-  reads your data correctly, and recovers gracefully instead of guessing.
-- ✅ **Skips the busywork** — routine Porter actions (uploading a file, opening a
-  hosted report) are pre-approved for Porter's own website, so Claude isn't
-  stopping to ask permission for every ordinary Porter task.
+  reads your data correctly, walks you through any setup step, and recovers
+  gracefully instead of guessing or giving up.
 
 You don't need to be technical. If you can chat with Claude, you can use this.
 
@@ -50,27 +48,17 @@ connected.
 > there too — see **<https://mcp.portermetrics.com/install>** for every way to
 > connect.
 
-### If you run Claude's Bash sandbox
+### If Claude says it can't reach Porter
 
-Most people can skip this. If you've turned on Claude Code's **sandbox** (the
-setting that lets Claude run commands on its own), uploading files goes through a
-network allow-list. The first time Claude uploads to Porter it will ask once to
-allow **`portermetrics.com`** — click **Yes** and you're set for the session.
+If Claude ever needs to upload a file or open a report and is blocked from
+reaching Porter's website, it will tell you exactly what to do: open
+**Settings → Capabilities → Domains** and add **`*.portermetrics.com`**. That's a
+one-time click that lets Claude talk to Porter's own site. You'll only see this if
+you've turned on Claude's command sandbox — most people never hit it.
 
-To never be asked, add Porter's domain to the allow-list once. Open your settings
-(`~/.claude/settings.json`) and add:
-
-```json
-{
-  "sandbox": { "network": { "allowedDomains": ["*.portermetrics.com"] } },
-  "permissions": { "allow": ["WebFetch(domain:*.portermetrics.com)"] }
-}
-```
-
-After that, `*.portermetrics.com` appears under **Settings → Capabilities →
-Domains** and Porter uploads never prompt again. *(Rolling this out to a whole
-team? Your admin can push the same allow-list to everyone via managed
-settings — email [support@portermetrics.com](mailto:support@portermetrics.com).)*
+> Prefer to set it up ahead of time, or rolling this out to a whole team? Your
+> admin can pre-allow `*.portermetrics.com` for everyone via managed settings —
+> email [support@portermetrics.com](mailto:support@portermetrics.com).
 
 ---
 
@@ -112,11 +100,10 @@ hand you the link to get started.
   your browser. Your platform passwords are never shared with Claude.
 - **Only your own accounts.** Claude sees the marketing accounts you connect —
   nothing else.
-- **Scoped access.** The plugin pre-approves permission prompts **only** for
-  Porter's own website (`*.portermetrics.com`) — for uploading files and opening
-  your hosted reports. It never widens access anywhere else; anything outside
-  Porter still asks for your OK the normal way. (If you use Claude's Bash
-  sandbox, see the [one-time setup](#if-you-run-claudes-bash-sandbox) above.)
+- **You stay in control.** Claude asks your permission for actions the normal way.
+  The only domain it ever guides you to allow is Porter's own website
+  (`*.portermetrics.com`), and only so uploads and hosted reports work — see
+  [above](#if-claude-says-it-cant-reach-porter).
 - Porter Metrics is **GDPR** compliant and **SOC 2 Type II** and **ISO 27001**
   certified. See <https://portermetrics.com> for details.
 
@@ -146,11 +133,8 @@ This repository is a Claude plugin **marketplace** with one plugin,
 - **`.mcp.json`** — connects Claude to the Porter MCP server at
   `https://mcp.portermetrics.com/mcp` (secure sign-in handled automatically).
 - **`skills/porter-metrics/`** — the instructions that teach Claude to use Porter
-  correctly.
-- **`hooks/`** — a small, tightly-scoped rule that auto-approves the *permission*
-  prompt for calls to `*.portermetrics.com` (and nothing else). It never widens
-  access elsewhere. Note: Claude's Bash sandbox has a separate network allow-list
-  a plugin can't populate — see the [one-time setup](#if-you-run-claudes-bash-sandbox).
+  correctly, including how to guide you through connecting an account or allowing
+  Porter's domain if that's ever needed.
 
 ```text
 porter/
@@ -158,9 +142,7 @@ porter/
 └── plugins/porter-metrics/
     ├── .claude-plugin/plugin.json      # the plugin manifest
     ├── .mcp.json                       # the Porter MCP connection
-    ├── skills/porter-metrics/SKILL.md  # how Claude uses Porter
-    ├── hooks/hooks.json                # pre-approve *.portermetrics.com
-    └── scripts/allow_porter_domains.py # the scoped approval rule
+    └── skills/porter-metrics/SKILL.md  # how Claude uses Porter
 ```
 
 ---
