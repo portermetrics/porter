@@ -13,7 +13,7 @@
     {
       "name": "porter-metrics",
       "source": "./plugins/porter-metrics",
-      "description": "Connect Claude to Porter Metrics in one step: the Porter MCP server (live marketing data from 25+ ad platforms, blends, hosted reports, 750+ actions and AI creative) plus a skill that teaches Claude to use it correctly. Calls to *.portermetrics.com are pre-approved so uploads and hosted resources work without prompts."
+      "description": "Connect Claude to Porter Metrics in one step: the Porter MCP server (live marketing data from 25+ ad platforms, blends, hosted reports, 750+ actions and AI creative) plus a skill that teaches Claude to use it correctly. Permission prompts for *.portermetrics.com are pre-approved so routine Porter tasks don't interrupt you."
     }
   ]
 }

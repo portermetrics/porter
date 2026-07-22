@@ -1,5 +1,5 @@
 {
-  "description": "Auto-approve network calls scoped to *.portermetrics.com (uploads via prepare_upload, hosted reports, signed links) so they don't prompt. Everything else is left to the normal permission flow.",
+  "description": "Auto-approve the permission prompt for calls scoped to *.portermetrics.com (uploads via prepare_upload, hosted reports, signed links). This is the permission layer only; Claude's Bash sandbox keeps its own network allow-list (Settings > Capabilities > Domains) that a plugin cannot populate. Everything else is left to the normal permission flow.",
   "hooks": {
     "PreToolUse": [
       {

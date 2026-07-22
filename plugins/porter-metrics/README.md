@@ -16,7 +16,7 @@ Connect Claude to **Porter Metrics** in one step. Installing this plugin bundles
 ## Install
 
 ```text
-/plugin marketplace add portermetrics/claude-plugin
+/plugin marketplace add portermetrics/porter
 /plugin install porter-metrics@portermetrics
 ```
 

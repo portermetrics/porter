@@ -24,9 +24,9 @@ things at once, so everything simply works from your first message:
   plus reports, saved analyses and a catalog of **750+ actions**.
 - 🧠 **Teaches Claude how to use Porter well** — so it asks for the right things,
   reads your data correctly, and recovers gracefully instead of guessing.
-- ✅ **Skips the busywork** — the setup Claude needs to upload files and open your
-  hosted reports is pre-approved for Porter's own website, so you're not
-  interrupted by permission pop-ups for routine Porter tasks.
+- ✅ **Skips the busywork** — routine Porter actions (uploading a file, opening a
+  hosted report) are pre-approved for Porter's own website, so Claude isn't
+  stopping to ask permission for every ordinary Porter task.
 
 You don't need to be technical. If you can chat with Claude, you can use this.
 
@@ -38,7 +38,7 @@ You'll need [Claude Code](https://www.claude.com/product/claude-code) (the Claud
 app for your computer). In Claude, type these two commands:
 
 ```text
-/plugin marketplace add portermetrics/claude-plugin
+/plugin marketplace add portermetrics/porter
 /plugin install porter-metrics@portermetrics
 ```
 
@@ -49,6 +49,28 @@ connected.
 > **On claude.ai (web or desktop) instead of Claude Code?** You can add Porter
 > there too — see **<https://mcp.portermetrics.com/install>** for every way to
 > connect.
+
+### If you run Claude's Bash sandbox
+
+Most people can skip this. If you've turned on Claude Code's **sandbox** (the
+setting that lets Claude run commands on its own), uploading files goes through a
+network allow-list. The first time Claude uploads to Porter it will ask once to
+allow **`portermetrics.com`** — click **Yes** and you're set for the session.
+
+To never be asked, add Porter's domain to the allow-list once. Open your settings
+(`~/.claude/settings.json`) and add:
+
+```json
+{
+  "sandbox": { "network": { "allowedDomains": ["*.portermetrics.com"] } },
+  "permissions": { "allow": ["WebFetch(domain:*.portermetrics.com)"] }
+}
+```
+
+After that, `*.portermetrics.com` appears under **Settings → Capabilities →
+Domains** and Porter uploads never prompt again. *(Rolling this out to a whole
+team? Your admin can push the same allow-list to everyone via managed
+settings — email [support@portermetrics.com](mailto:support@portermetrics.com).)*
 
 ---
 
@@ -90,10 +112,11 @@ hand you the link to get started.
   your browser. Your platform passwords are never shared with Claude.
 - **Only your own accounts.** Claude sees the marketing accounts you connect —
   nothing else.
-- **Scoped access.** The plugin pre-approves routine network access **only** to
+- **Scoped access.** The plugin pre-approves permission prompts **only** for
   Porter's own website (`*.portermetrics.com`) — for uploading files and opening
   your hosted reports. It never widens access anywhere else; anything outside
-  Porter still asks for your OK the normal way.
+  Porter still asks for your OK the normal way. (If you use Claude's Bash
+  sandbox, see the [one-time setup](#if-you-run-claudes-bash-sandbox) above.)
 - Porter Metrics is **GDPR** compliant and **SOC 2 Type II** and **ISO 27001**
   certified. See <https://portermetrics.com> for details.
 
@@ -124,12 +147,13 @@ This repository is a Claude plugin **marketplace** with one plugin,
   `https://mcp.portermetrics.com/mcp` (secure sign-in handled automatically).
 - **`skills/porter-metrics/`** — the instructions that teach Claude to use Porter
   correctly.
-- **`hooks/`** — a small, tightly-scoped rule that pre-approves network calls to
-  `*.portermetrics.com` (and nothing else) so uploads and hosted reports don't
-  prompt.
+- **`hooks/`** — a small, tightly-scoped rule that auto-approves the *permission*
+  prompt for calls to `*.portermetrics.com` (and nothing else). It never widens
+  access elsewhere. Note: Claude's Bash sandbox has a separate network allow-list
+  a plugin can't populate — see the [one-time setup](#if-you-run-claudes-bash-sandbox).
 
 ```text
-claude-plugin/
+porter/
 ├── .claude-plugin/marketplace.json     # the marketplace catalog
 └── plugins/porter-metrics/
     ├── .claude-plugin/plugin.json      # the plugin manifest
