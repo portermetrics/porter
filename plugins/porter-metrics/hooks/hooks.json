@@ -1,0 +1,17 @@
+{
+  "description": "Auto-approve network calls scoped to *.portermetrics.com (uploads via prepare_upload, hosted reports, signed links) so they don't prompt. Everything else is left to the normal permission flow.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "WebFetch|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${CLAUDE_PLUGIN_ROOT}/scripts/allow_porter_domains.py",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -4,18 +4,24 @@ description: >-
   Use the Porter Metrics connector correctly. Load this whenever the user
   mentions Porter, Porter Metrics, or wants marketing data from ad platforms
   (Meta/Facebook Ads, Google Ads, GA4, TikTok, LinkedIn, Shopify, …), saved
-  blends, hosted reports, or write-back actions through Porter. Covers the
-  right first steps (whoami, get_knowledge, connect an account), how to read
-  data, and how to recover when no accounts or connectors show up.
+  blends, hosted reports, write-back actions, or marketing creative (AI
+  images, video, voiceover) through Porter. Covers the right first steps
+  (whoami, get_knowledge, connect an account), how to read data, how to reach
+  the 750+ action catalog, how to recover when no accounts show up, and when to
+  report a Porter bug or request a missing feature.
 ---
 
 # Using the Porter Metrics connector
 
-Porter Metrics is a marketing-data platform. Through its MCP connector you can
-pull live data from 25+ ad-platform and marketing connectors, save reusable
-analyses ("blends") and scheduled exports, build hosted dashboards, and run
-write actions on the connected platforms. The connector exposes 26 tools in
-four groups; the sections below cover the ones a session actually starts from.
+Porter Metrics is the marketing operating system — one connector with the
+tools a marketer or data analyst uses day to day. Beyond live data from 25+
+ad-platform and marketing connectors, blends and hosted dashboards, it also
+generates AI creative (images, video, text-to-speech voiceover), manages
+campaigns on the ad platforms, drives CRM/email marketing, e-commerce, SEO
+research and web scraping. The connector exposes 28 fixed tools in five
+groups — but the fixed list is NOT the limit: the long tail (750+ operations,
+including all creative generation) lives behind `list_actions` /
+`execute_action`. Search there before concluding Porter lacks a capability.
 
 ## The one habit that makes Porter work
 
@@ -46,10 +52,17 @@ synonyms, mix English/Spanish) — they fuse into one ranked result set.
 - **Reports** — hosted dashboards at `report.portermetrics.com/<id>`:
   `list_reports`, `get_report`, `preview_report`, `create_report`,
   `edit_report`, `duplicate_report`, `delete_report`, `share_report`.
-- **Actions** — every write (ad-platform write-backs, blend exports, report
-  email schedules, triggers, third-party app calls) is an *action* discovered
-  by intent: `list_actions(task="…")` → pick one → `execute_action(action,
-  account_id?, params)`.
+- **Actions** — everything else is an *action* discovered by intent:
+  `list_actions(task="…")` → pick one → `execute_action(action, account_id?,
+  params)`. The catalog spans ~40 categories: **creative generation (AI
+  images, video — text→image, image→video, talking-head —, and text-to-speech
+  voiceover)**, ad-platform campaign management (Google/Meta/TikTok/LinkedIn/
+  Microsoft/Pinterest/X/Apple/DV360), CRM & email (HubSpot, Klaviyo,
+  Mailchimp, ActiveCampaign), e-commerce (Shopify, WooCommerce, Amazon),
+  SEO/SERP research, web scraping, blend exports, report email schedules,
+  triggers and more.
+- **Support** — `report_bug` and `request_feature`, for when Porter itself is
+  the problem. See below.
 
 ## First run — nobody has connected anything yet
 
@@ -88,6 +101,41 @@ Every tool returns a plain object; on failure it carries `error_type`,
 open with `get_knowledge`. When a `hint` or error is unfamiliar, call
 `get_knowledge` with the error text as one of the queries before retrying.
 
+## When Porter itself is the problem
+
+Two tools escalate to Porter's team. They are deliberately asymmetric.
+
+**`report_bug`** — Porter is genuinely broken. Call it **yourself, without
+asking permission**: the user already told you something failed, and asking
+again just loses the report. Tell them afterwards that you filed it and that
+bugs reported this way are normally fixed **within 24 hours**. Send
+`error_text` (the verbatim error or traceback) and `tool_params` (the failing
+call's arguments) — they are what makes it reproducible. Credentials and
+oversized values are stripped server-side, so pass what you already have rather
+than interrogating the user for it.
+
+**`get_knowledge` is the gate.** Pass the error text as one of the queries
+first. If the KB explains the failure, it is not a bug — apply the fix. Only
+escalate what the KB does not explain. These are **not** bugs, and filing them
+buries the real ones:
+
+| What you see | What it actually is |
+|---|---|
+| Empty `list_accounts` | A first-run user who connected nothing — `connect_account` |
+| Auth / expired-credential error | Their own 3P authorization lapsed — `connect_account` |
+| "Unknown field" / "invalid parameter" | A bad argument you passed — fix it from `list_fields` |
+| Connector lacks a field or operation | A limit, not a defect — `request_feature` |
+
+**`request_feature`** — Porter works but lacks something the user needs. Search
+`list_actions(task="…")` first; the fixed tools are not Porter's limit, and
+requesting something that already ships wastes everyone's time. When you find a
+real gap, propose it: tell the user what is missing, show them the request, and
+ask whether to send it. It only sends with `user_approved=true`, and you must
+**never set that on your own** — the request speaks for the user about what they
+want. Make `current_behavior` (the concrete limit today) and `expected_behavior`
+(how they expect it to work) specific; that contrast is what product triages on.
+Never promise a delivery date.
+
 ## Common intents → where to go
 
 | The user wants… | Do this |
@@ -98,3 +146,6 @@ open with `get_knowledge`. When a `hint` or error is unfamiliar, call
 | "blend Facebook + Google daily" | `create_blend` (+ a scheduled export action) |
 | "give me a shareable report" | `create_report` → `share_report` |
 | "pause campaigns / write back" | `list_actions(task=…)` → `execute_action` |
+| "generate an image / video / voiceover ad" | `list_actions(task="generate …")` → `execute_action` (`creative.*`, `audio.*`) |
+| "this is broken / Porter has a bug" | `get_knowledge` with the error text → if unexplained, `report_bug` |
+| "can Porter add X?" | `list_actions(task="X")` → if truly absent, propose `request_feature`, then ask before sending |

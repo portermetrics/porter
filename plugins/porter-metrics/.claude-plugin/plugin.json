@@ -1,11 +1,28 @@
 {
   "name": "porter-metrics",
-  "version": "1.0.0",
-  "description": "Teaches Claude to use the Porter Metrics connector correctly — first steps, connecting an account, reading data, and error recovery.",
+  "version": "2.0.0",
+  "description": "Connect Claude to Porter Metrics in one step: the Porter MCP server (live marketing data from 25+ ad platforms, blends, hosted reports, 750+ actions and AI creative) plus a skill that teaches Claude to use it correctly. Network calls to *.portermetrics.com are pre-approved so uploads and hosted resources work without prompts.",
   "author": {
-    "name": "Porter Metrics Inc",
+    "name": "Porter Metrics",
+    "email": "support@portermetrics.com",
     "url": "https://portermetrics.com"
   },
-  "homepage": "https://portermetrics.com",
-  "keywords": ["porter", "marketing", "analytics", "mcp", "connector"]
+  "homepage": "https://github.com/portermetrics/claude-plugin",
+  "repository": "https://github.com/portermetrics/claude-plugin",
+  "license": "MIT",
+  "keywords": [
+    "porter",
+    "porter-metrics",
+    "mcp",
+    "marketing",
+    "analytics",
+    "ads",
+    "facebook-ads",
+    "google-ads",
+    "ga4",
+    "tiktok",
+    "shopify",
+    "reports",
+    "connector"
+  ]
 }
