@@ -1,3 +1,16 @@
+<!-- ============================================================================
+     GENERATED REPOSITORY — DO NOT EDIT HERE.
+
+     Every file in this repo is published from `skill/plugin/` in the private
+     porter-mcp-server repo, by scripts/publish_plugin.py on each merge to
+     master. Edit it THERE. Anything committed here is overwritten, silently,
+     by the next merge.
+
+     This is not hypothetical: edits made directly here on 2026-07-22 kept this
+     repo serving a July skill under version 2.0.0 for seven weeks, while the
+     source repo carried newer content under 1.1.0. See CONTRIBUTING.md.
+     ========================================================================= -->
+
 <div align="center">
 
 # Porter Metrics for Claude

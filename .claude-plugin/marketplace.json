@@ -1,19 +1,21 @@
 {
   "name": "portermetrics",
+  "description": "Official Porter Metrics plugins for Claude — marketing data, reports and campaign management across 25+ ad and analytics platforms.",
   "owner": {
-    "name": "Porter Metrics",
-    "email": "support@portermetrics.com",
+    "name": "Porter Metrics Inc",
     "url": "https://portermetrics.com"
-  },
-  "metadata": {
-    "description": "Official Porter Metrics marketplace for Claude — install the Porter connector (MCP server + skill) so Claude can pull your live marketing data, build reports and run actions.",
-    "version": "2.0.0"
   },
   "plugins": [
     {
       "name": "porter-metrics",
+      "displayName": "Porter Metrics",
       "source": "./plugins/porter-metrics",
-      "description": "Connect Claude to Porter Metrics in one step: the Porter MCP server (live marketing data from 25+ ad platforms, blends, hosted reports, 750+ actions and AI creative) plus a skill that teaches Claude to use it correctly — first run, connecting accounts, reading data, and reporting bugs or requesting features."
+      "version": "2.1.0",
+      "description": "Connects the Porter Metrics MCP connector and installs the skill that teaches Claude to use it correctly — first steps, connecting an account, reading data, and error recovery.",
+      "category": "marketing",
+      "tags": ["marketing", "analytics", "ads", "reporting", "mcp"],
+      "homepage": "https://mcp.portermetrics.com/install",
+      "repository": "https://github.com/portermetrics/porter"
     }
   ]
 }
