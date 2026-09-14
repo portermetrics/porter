@@ -13,6 +13,7 @@ export a blend they never built, or schedule a report they never made.
 | 4 | [Data Export](data-export.md) | The data lands in Sheets or BigQuery on its own |
 | 5 | [Automation](automation.md) | Porter does the work: research, changes, creative |
 | 6 | [Notifications](notifications.md) | It arrives without anyone asking for it |
+| 7 | [Daily routine](routine.md) | Porter starts their day, and closes the loop on it |
 
 [Research](research.md) sits inside Automation but needs **no** data connected —
 it works against public sources. It's the fastest way to show value to someone

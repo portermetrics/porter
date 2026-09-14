@@ -29,8 +29,11 @@ available** — see [pending](pending.md) for what to offer instead. Don't promi
 a Slack alert; email covers the same need, which is not having to remember to
 look.
 
+→ Next: [the daily routine](routine.md) — the step where Porter stops waiting
+to be opened at all.
+
 ---
 
-That's the last milestone. Don't announce completing a checklist — they never
-saw it. If they got here, they have live data, a report that shares itself and
-numbers that arrive on their own. Ask what else takes up their week.
+Don't announce completing a checklist; they never saw it. If they got here they
+have live data, a report that shares itself and numbers that arrive on their
+own. That's the moment to ask what else takes up their week.

@@ -10,7 +10,7 @@
       "name": "porter-metrics",
       "displayName": "Porter Metrics",
       "source": "./plugins/porter-metrics",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "description": "Connects the Porter Metrics MCP connector and installs the skill that teaches Claude to use it correctly — first steps, connecting an account, reading data, and error recovery.",
       "category": "marketing",
       "tags": ["marketing", "analytics", "ads", "reporting", "mcp"],

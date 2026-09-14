@@ -1,7 +1,7 @@
 {
   "name": "porter-metrics",
   "displayName": "Porter Metrics",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "license": "MIT",
   "description": "Connects the Porter Metrics MCP connector and installs the skill that teaches Claude to use it correctly — first steps, connecting an account, reading data, and error recovery.",
   "author": {

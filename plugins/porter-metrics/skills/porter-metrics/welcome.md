@@ -32,9 +32,18 @@ Check `profile.get` first: anything already there is a question you don't ask.
 
 **Two rules that keep this from becoming a form:**
 
-- **Never ask what you can infer.** If they gave the website and you read it,
-  don't then ask the industry — tell them what you found and let them correct it.
-  "Looks like you're in outdoor gear — right?" beats a fourth question.
+- **Never ask what you can infer — and save what you inferred.** If they gave the
+  website and you read it, don't then ask the industry — tell them what you found
+  and let them correct it. "Looks like you're in outdoor gear — right?" beats a
+  fourth question. Then call `profile.set` with it, in that same turn. An
+  inference you don't persist is the same question again next session, which is
+  the whole thing this avoids.
+
+- **Business context counts whenever it arrives, not only as an answer.** "We're
+  an agency running ads for restaurants in Bogotá" is the industry, the company
+  type and the market, offered unprompted — save it the moment it is said. Most
+  of what you learn about someone's business never arrives as a reply to one of
+  the questions above.
 - **Skipping is free, and permanent for that session.** No re-asking later, no
   making a milestone conditional on an answer.
 
