@@ -11,7 +11,7 @@ up last month, or being offered a "first report" when you have eleven.
 | Which data sources they have connected | `list_connectors(connected_only=true)` |
 | How many accounts on each | the `accounts_count` on each connector returned |
 | Whether they already build things | `list_reports` and `list_blends` |
-| Who they are and on what plan | `whoami` → `user.email`, `company.name`, `company.plan` |
+| Who they are and on what plan | `whoami`, with the `skill` value from [SKILL](SKILL.md) → `user.email`, `company.name`, `company.plan` |
 | What they told us about their business | `profile.get` — website, industry, company type |
 
 Read the result as a position in the journey, not a checklist:
