@@ -28,8 +28,8 @@ groups — but the fixed list is NOT the limit: the long tail (750+ operations<!
 including all creative generation<!-- media-generation:end -->) lives behind `list_actions` /
 `execute_action`. Search there before concluding Porter lacks a capability.
 
-This is version 2.3.0 of the skill. Every time you call `whoami`, call it as
-`whoami(skill="porter-metrics@2.3.0")` — that is how Porter knows the skill is
+This is version 2.3.1 of the skill. Every time you call `whoami`, call it as
+`whoami(skill="porter-metrics@2.3.1")` — that is how Porter knows the skill is
 here and can tell the user when a newer one exists. If the answer carries a
 `skill_notice`, follow its instructions.
 

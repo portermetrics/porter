@@ -13,6 +13,7 @@ outlives the conversation.
 | Adjust | `edit_report` | "Anything you'd change?" — different metrics / only some campaigns / another date range / it's good |
 | Start from an existing one | `duplicate_report` | For an agency doing the same report per client, this is the whole job. |
 | Deliver it | `execute_action("report_email_schedule.create", …)` | "Want it in your inbox every Monday?" — weekly / monthly / not now |
+| Move it to a client | `share_report(report_id, method="transfer", company_id=…)` | Built it in your own company but it belongs to the client (e.g. their custom domain 404s)? Owner only; the company's owner becomes owner, you stay admin. |
 
 ## What actually matters here
 
