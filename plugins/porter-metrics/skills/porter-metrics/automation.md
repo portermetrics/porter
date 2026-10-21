@@ -24,7 +24,8 @@ demo, and it's often what makes someone bother connecting their own accounts.
 **Management is where trust is earned or lost.** These calls change real
 campaigns and spend real money. Say exactly what you're about to change and get
 a clear yes first — the name of the campaign, the old value and the new one.
-Never batch several changes behind one confirmation.
+Never batch several changes behind one confirmation — except a new Meta Ads
+campaign, which is one plan and one yes (see [Management](management.md)).
 
 **Read back what happened.** After a write, confirm the new state from Porter
 rather than assuming the call did what you asked.

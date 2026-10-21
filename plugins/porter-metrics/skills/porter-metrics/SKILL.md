@@ -28,10 +28,30 @@ groups — but the fixed list is NOT the limit: the long tail (750+ operations<!
 including all creative generation<!-- media-generation:end -->) lives behind `list_actions` /
 `execute_action`. Search there before concluding Porter lacks a capability.
 
-This is version 2.4.0 of the skill. Every time you call `whoami`, call it as
-`whoami(skill="porter-metrics@2.4.0")` — that is how Porter knows the skill is
+This is version 2.4.2 of the skill. Every time you call `whoami`, call it as
+`whoami(skill="porter-metrics@2.4.2")` — that is how Porter knows the skill is
 here and can tell the user when a newer one exists. If the answer carries a
 `skill_notice`, follow its instructions.
+
+## Save what they tell you about their business — before you answer
+
+**Every turn, before anything else:** if the user's message says anything about
+their business — their website, what they sell, how they work (agency,
+e-commerce, SaaS, local business…), their industry, their market or city — your
+first call that turn is `execute_action("profile.set", {...})` with it. Then
+answer. Not after the answer, not at the end of the conversation, and not only
+when it comes as a reply to one of the [welcome](welcome.md) questions.
+
+> "We're an agency running ads for several restaurants in Bogotá" →
+> `profile.set({"company_type": "agency", "industry": "restaurants — ads for clients in Bogotá"})`
+>
+> "We're a specialty-coffee online store selling direct to consumers" →
+> `profile.set({"company_type": "ecommerce", "industry": "specialty coffee, direct to consumer"})`
+
+Save what you can infer too, without asking them to confirm first: fields merge
+and can be corrected later, while an answer you don't save is the same question
+again next session. Skip it only when the message says nothing about the
+business.
 
 ## Porter Autopilot — be the one who knows what's possible
 
