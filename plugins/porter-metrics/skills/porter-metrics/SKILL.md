@@ -28,8 +28,8 @@ groups — but the fixed list is NOT the limit: the long tail (750+ operations<!
 including all creative generation<!-- media-generation:end -->) lives behind `list_actions` /
 `execute_action`. Search there before concluding Porter lacks a capability.
 
-This is version 2.4.2 of the skill. Every time you call `whoami`, call it as
-`whoami(skill="porter-metrics@2.4.2")` — that is how Porter knows the skill is
+This is version 2.4.3 of the skill. Every time you call `whoami`, call it as
+`whoami(skill="porter-metrics@2.4.3")` — that is how Porter knows the skill is
 here and can tell the user when a newer one exists. If the answer carries a
 `skill_notice`, follow its instructions.
 
@@ -131,15 +131,17 @@ synonyms, mix English/Spanish) — they fuse into one ranked result set.
   `bigquery_join`, `query_blend`, and blend CRUD (`list_blends`, `get_blend`,
   `create_blend`, `update_blend`, `delete_blend`).
 - **Reports** — hosted dashboards at `report.portermetrics.com/<id>` (or, per
-  report, under the client's own custom domain, e.g. `reports.example.com`):
-  `list_reports`, `get_report`, `preview_report`, `create_report`,
-  `edit_report`, `duplicate_report`, `delete_report`, `share_report`,
-  `manage_report_domain` (connect a domain → DNS records → verify → assign
-  reports: root / add_report; owner + paid plan), and `publish_report_spec`
-  (fast path: a spec of catalog sections — KPIs, trend, table, bars, donut,
-  galleries, free text with live formulas — published over the prebuilt
-  viewer in seconds, no build; if it answers `unsupported_section`, fall back
-  to `create_report`).
+  report, under the client's own custom domain, e.g. `reports.example.com`).
+  A new one is `draft_report_spec` (a ready spec from the request, one call) →
+  `publish_report_spec(draft_id=…, patch=[…])`: the report as data — KPIs,
+  trend, table, bars, donut, funnel, pacing, galleries, free text with live
+  formulas — in any design (theme, free layout, `viz` nodes for any chart),
+  live in about a minute with no build, and changed later with
+  `publish_report_spec(report_id=…, patch=[…])`. `create_report` +
+  `edit_report` (build a bundle) only for what the spec cannot express. Also
+  `list_reports`, `get_report`, `preview_report`, `duplicate_report`,
+  `delete_report`, `share_report`, `manage_report_domain` (connect a domain →
+  DNS records → verify → assign reports: root / add_report; owner + paid plan).
 - **Actions** — everything else is an *action* discovered by intent:
   `list_actions(task="…")` → pick one → `execute_action(action, account_id?,
   params)`. The catalog spans ~40 categories: <!-- media-generation:start -->**creative generation (AI
@@ -183,7 +185,8 @@ rows label themselves). Reply with the numbers in chat. Ad-level asset fields (t
 video URLs) are the one thing that turns a seconds-long query into a
 minutes-long one — ask for them deliberately, not by default. For a recurring or
 cross-connector analysis, save a **blend**; for a shareable dashboard URL,
-create a **hosted report** (not a chat table).
+create a **hosted report** (not a chat table): `draft_report_spec` →
+`publish_report_spec`.
 
 ## Long calls: a query can outlive the tool call, and that is not a failure
 
@@ -290,7 +293,7 @@ Never promise a delivery date.
 | "show my Facebook/Google spend" | `list_accounts` → `list_fields` → `query_data` |
 | "I don't see any accounts" | First-run flow above: `list_connectors` → `connect_account` |
 | "blend Facebook + Google daily" | `create_blend` (+ a scheduled export action) |
-| "give me a shareable report" | `publish_report_spec` → `share_report` (`create_report` only when the spec is rejected) |
+| "give me a shareable report" | `draft_report_spec` → `publish_report_spec(draft_id, patch)` → `share_report` (`create_report` only for what the spec cannot express) |
 | "pause campaigns / write back" | `list_actions(task=…)` → `execute_action` |
 <!-- media-generation:start -->| "generate an image / video / voiceover ad" | `list_actions(task="generate …")` → `execute_action` (`creative.*`, `audio.*`) |<!-- media-generation:end -->
 | a query came back `running`, or the call timed out | `get_query_result(query_id)` — never re-issue `query_data`; the run is still alive |
