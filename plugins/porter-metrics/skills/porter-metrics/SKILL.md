@@ -4,8 +4,8 @@ description: >-
   Use the Porter Metrics connector correctly. Load this whenever the user
   mentions Porter, Porter Metrics, or wants marketing data from ad platforms
   (Meta/Facebook Ads, Google Ads, GA4, TikTok, LinkedIn, Shopify, Stripe, …), saved
-  blends, hosted reports, write-back actions<!-- media-generation:start -->, or marketing creative (AI
-  images, video, voiceover)<!-- media-generation:end --> through Porter. Covers the right first steps
+  blends, hosted reports, write-back actions, or marketing creative (AI
+  images, video, voiceover) through Porter. Covers the right first steps
   (whoami, get_knowledge, connect an account), how to read data, how to reach
   the 750+ action catalog, how to recover when no accounts show up, what to do
   when a query comes back still running or the call times out, and when to
@@ -20,16 +20,16 @@ description: >-
 
 Porter Metrics is the marketing operating system — one connector with the
 tools a marketer or data analyst uses day to day. Beyond live data from 25+
-ad-platform and marketing connectors, blends and hosted dashboards, it also<!-- media-generation:start -->
-generates AI creative (images, video, text-to-speech voiceover),<!-- media-generation:end --> manages
+ad-platform and marketing connectors, blends and hosted dashboards, it also
+generates AI creative (images, video, text-to-speech voiceover), manages
 campaigns on the ad platforms, drives CRM/email marketing, e-commerce, SEO
 research and web scraping. The connector exposes 28 fixed tools in five
-groups — but the fixed list is NOT the limit: the long tail (750+ operations<!-- media-generation:start -->,
-including all creative generation<!-- media-generation:end -->) lives behind `list_actions` /
+groups — but the fixed list is NOT the limit: the long tail (750+ operations,
+including all creative generation) lives behind `list_actions` /
 `execute_action`. Search there before concluding Porter lacks a capability.
 
-This is version 2.4.3 of the skill. Every time you call `whoami`, call it as
-`whoami(skill="porter-metrics@2.4.3")` — that is how Porter knows the skill is
+This is version 2.4.4 of the skill. Every time you call `whoami`, call it as
+`whoami(skill="porter-metrics@2.4.4")` — that is how Porter knows the skill is
 here and can tell the user when a newer one exists. If the answer carries a
 `skill_notice`, follow its instructions.
 
@@ -144,9 +144,9 @@ synonyms, mix English/Spanish) — they fuse into one ranked result set.
   DNS records → verify → assign reports: root / add_report; owner + paid plan).
 - **Actions** — everything else is an *action* discovered by intent:
   `list_actions(task="…")` → pick one → `execute_action(action, account_id?,
-  params)`. The catalog spans ~40 categories: <!-- media-generation:start -->**creative generation (AI
+  params)`. The catalog spans ~40 categories: **creative generation (AI
   images, video — text→image, image→video, talking-head —, and text-to-speech
-  voiceover)**, <!-- media-generation:end -->ad-platform campaign management (Google/Meta/TikTok/LinkedIn/
+  voiceover)**, ad-platform campaign management (Google/Meta/TikTok/LinkedIn/
   Microsoft/Pinterest/X/Apple/DV360), CRM & email (HubSpot, Klaviyo,
   Mailchimp, ActiveCampaign), e-commerce (Shopify, WooCommerce, Amazon),
   payments and billing (Stripe: charges, refunds, payouts, invoices,
@@ -204,12 +204,12 @@ attaches to the same run and blocks on it — it does not poll and it does not
 start a new extraction — so **pausing before you call only adds your pause to the
 answer's latency**. Do not sleep, do not back off, do not "wait a bit and retry".
 
-<!-- media-generation:start -->**2 · media generation → `{"status": "processing", "job_id", "poll_after_seconds"}`**
+**2 · media generation → `{"status": "processing", "job_id", "poll_after_seconds"}`**
 
 The opposite contract: here you *do* wait. Sleep the `poll_after_seconds` the
 response gives you (images ~5 s, video ~30 s) before polling the job by its
 `job_id`.
-<!-- media-generation:end -->
+
 
 **Never answer a still-running call by re-issuing it.** A second
 `query_data` abandons the run already in flight and starts the work over, which
@@ -295,7 +295,7 @@ Never promise a delivery date.
 | "blend Facebook + Google daily" | `create_blend` (+ a scheduled export action) |
 | "give me a shareable report" | `draft_report_spec` → `publish_report_spec(draft_id, patch)` → `share_report` (`create_report` only for what the spec cannot express) |
 | "pause campaigns / write back" | `list_actions(task=…)` → `execute_action` |
-<!-- media-generation:start -->| "generate an image / video / voiceover ad" | `list_actions(task="generate …")` → `execute_action` (`creative.*`, `audio.*`) |<!-- media-generation:end -->
+| "generate an image / video / voiceover ad" | `list_actions(task="generate …")` → `execute_action` (`creative.*`, `audio.*`) |
 | a query came back `running`, or the call timed out | `get_query_result(query_id)` — never re-issue `query_data`; the run is still alive |
 | "this is broken / Porter has a bug" | `get_knowledge` with the error text → if unexplained, `report_bug` |
 | "can Porter add X?" | `list_actions(task="X")` → if truly absent, propose `request_feature`, then ask before sending |
