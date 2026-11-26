@@ -2,13 +2,14 @@
 
 ## 7 · The daily routine — Porter with a rhythm of its own
 
-Every milestone before this one still waits for the user to open a chat. This
-is the one that flips it: a routine that runs on its own each morning, starts
-their day with what actually changed, and closes the loop on what they did
-about it.
+Every milestone before this one still waits for the user to open a chat. This is
+the one where Porter stops waiting to be opened: a routine that runs on its own
+each morning and has the work done — what actually changed, and what came of
+what they did yesterday — before they ask for it.
 
-It's the difference between a tool someone remembers to use and an assistant
-that's already working when they sit down.
+⚠️ **Read the next section before you pitch it.** The work happens on its own;
+the *delivery* is where the promise has to stay honest, and getting that wrong
+leaves someone waiting for a message that never arrives.
 
 | Step | How |
 |---|---|
@@ -16,6 +17,26 @@ that's already working when they sit down.
 | Create it | `execute_action("create_trigger", {kind: "schedule", match: {cron: "0 8 * * 1-5", timezone: "<theirs>"}, action: {...}})` |
 | Show it working | `list_trigger_runs` after the first fire, so they see it ran rather than trusting it did |
 | Hand them the controls | `pause_trigger`, `resume_trigger`, `delete_trigger` — say these exist **when you create it**, not when they complain |
+
+## Where it delivers — say this, do not imply it
+
+A scheduled trigger runs in the background and **does not write into this chat
+by itself**. There is no channel that pushes a message into a conversation on a
+cron, so the two outputs that work end to end are:
+
+* **email**, when the routine's action delivers one;
+* **`list_trigger_runs`**, which the user goes and reads.
+
+Slack, Teams and SMS are not wired. Do not offer them.
+
+So say which one it will be, in the same message you create it.
+**Never "I'll message you every morning"** — you only speak when the user
+writes, and a routine cannot change that. And never end the turn on "it's under
+way, I'll let you know": finish in this turn, with where to look.
+
+This is a real limit of the platform and not a style note. Pitched as a message
+that arrives on its own, the routine is a promise nothing can keep, and the user
+finds out by waiting.
 
 ## What actually matters here
 
